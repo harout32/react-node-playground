@@ -1,0 +1,28 @@
+// import React from 'react';
+// import { BaseRoute } from './baseRoute';
+// import { Redirect } from 'react-router-dom';
+// import { WithUserData } from '../containers';
+
+// export class PrivateRoute extends BaseRoute <any> {
+//     componentDidMount() {
+//         debugger;
+//         console.log('component private route did mount');
+//             this.start( this.checkAuth() );
+//     }
+//     checkAuth() {
+//         // TODO : get token and decode it if expired then ask for new authToken if error then go to login page
+//         return true;
+//     }
+//     render() {
+//         debugger;
+//         const { LoadingComponent, render } = this.props
+//         const { DefaultLaoding } = this;
+//         if ( !this.props.isRouterLoading && !this.props.isLoggedIn ) {
+//             return <Redirect to="/login" />
+//         }
+//     return this.props.isLoggedIn && !this.props.isRouterLoading && render ?
+//     render({...this.props} as any): 
+//     (LoadingComponent ? <LoadingComponent/> : <DefaultLaoding/>)
+
+// }
+// }

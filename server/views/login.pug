@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  .inner
+    h2(style="text-align:center") Log in if you are the ADMIN ;)
+  .inner
+    form(action="/admin/login", method="post")
+        input(id='userName' type='text' name='userName' class="input" placeholder="userName" autocomplete="off" autofocus)
+        input(id='password' type='password' name='password' class="input" placeholder="Password")
+        input(type="submit", value="enter" class="button")

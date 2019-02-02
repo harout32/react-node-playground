@@ -1,0 +1,37 @@
+// import { Route, RouteProps } from 'react-router-dom';
+// import { UserState } from '../models';
+
+
+// interface Pro extends RouteProps {
+//     resolve?: () => Promise<{data: any}>;
+//     isRouterLoading: boolean;
+//     isLoggedIn?: boolean;
+//     LoadingComponent?: any;
+//     setLoading: (isLoading: boolean) => void;
+// }
+
+// export class BaseRoute<T extends Pro> extends Route <Pro> {
+//     defaultResolve () {
+//         return Promise.resolve();
+//     }
+//     DefaultLaoding() {
+//         return (<h1>I am default Laoding</h1>);
+//     }
+//     start = (isAuthenticated: boolean) => {
+//         try {
+//             let data: any = true;
+//             if ( this.props.resolve && isAuthenticated ) {
+//                 this.props.resolve().then(res => {
+//                     data = res.data;
+//                     this.props.setLoading(false);
+//                     // this.setState(() => ({data: data, isAuthenticated, isLoading: false}));
+//                 }).catch(console.log);
+//             } else {
+//                 this.props.setLoading(false);
+//                 // this.setState(() => ({data: null, isAuthenticated, isLoading: false}));
+//             }
+//         }catch(err) {
+
+//         }
+//     }
+// }
