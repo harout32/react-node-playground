@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
 
 import { userReducer } from './userReducer';
+import { routerReducer } from './routerReducer';
+
 import { 
     UserState,
     RouterState,
  } from '../models';
-import { routerReducer } from './routerReducer';
 
 interface CombineReducersObject {
     user: UserState;
@@ -14,5 +15,5 @@ interface CombineReducersObject {
 
 export const reducers = combineReducers<CombineReducersObject>({
     user: userReducer,
-    router: routerReducer
+    router: routerReducer,
 });

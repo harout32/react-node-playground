@@ -4,6 +4,7 @@ const pick = require('lodash/pick');
 const { User } = require('../models/User');
 const { Role } = require('../models/Role');
 
+
 const isLogedIn = async (req, res, next) => {
   const token = req.header('token');
   const user = await User.findByToken(token);
@@ -13,23 +14,12 @@ const isLogedIn = async (req, res, next) => {
   return res.send(user);
 };
 
-const createUser = async (req, res, next) => {
-  const data = pick(req.body, ['userName', 'password', 'email', 'role']);
-  const role = await Role.findOne({ name: data.role });
-  if (!role) return next({ status: 400, message: 'No Role' });
-  data.role = role._id;
-
-  const user = await (new User(data)).save();
-  await user.generateToken();
-  return res.send(user);
-};
 
 /**
  * @param {string} userName
  * @param {string} password
  */
 const login = async (req, res, next) => {
-
   const data = pick(req.body, ['userName', 'password']);
   const user = await User.findOne({ userName: data.userName }).populate(
     {
@@ -54,9 +44,23 @@ const logout = async (req, res, next) => {
   return res.status(200).send({ message: 'You are logged out!' });
 };
 
+const getUserPermissions = async (req, res, next) => {
+  console.log('asdasdasdasdaaaaaaaaaaaa')
+  const role = await Role.findById(req.user.role._id).populate(
+    {
+      path: 'permissions',
+      select: '-_id',
+    }
+  );
+  if (!role) return next({ message: 'no such a Role !!!', status: 400 });
+  const permissions = role.permissions.map(per => per.name);
+  return res.status(200).send(permissions);
+};
+
+
 module.exports = {
   logout,
-  createUser,
   login,
   isLogedIn,
+  getUserPermissions,
 };

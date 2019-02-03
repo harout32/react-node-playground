@@ -4,8 +4,6 @@ const roleRouter = express.Router();
 
 const {
   catchErrors,
-  notFound,
-  apiHandle,
 } = require('../error handlers/errorHandler');
 
 const { authentication } = require('../middlewares/authentication');
@@ -23,8 +21,11 @@ const { permissionsEnum } = require('../Enums/PermissionsEnum');
 // roleRouter.get('/', catchErrors(getRoles));
 roleRouter.post('/', catchErrors(addRole));
 // roleRouter.post('/PermissionToRole', catchErrors(addPermission));
-roleRouter.get('/UserPermissions', catchErrors(getUserPermissions));
-roleRouter.use(notFound);
-roleRouter.use(apiHandle);
+
+
+
+
+// roleRouter.get('/UserPermissions', catchErrors(getUserPermissions));
+
 
 module.exports = roleRouter;

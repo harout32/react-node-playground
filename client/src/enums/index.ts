@@ -1,2 +1,3 @@
-export * from './userActionType';
+export * from './userActionTypes';
 export * from './routerActionTypes';
+export * from './flashMessageActionTypes';
