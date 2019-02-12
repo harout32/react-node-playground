@@ -1,31 +1,36 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { setRouterIsLoadingAction } from '../actions';
 import { Dispatch } from 'redux';
-import { State } from '../models';
-import { DefaultLoader } from './defaultLoader';
 import { RouteProps } from 'react-router-dom';
 import { RouterProps, Redirect } from 'react-router';
+import { message } from 'antd';
+
+import { DefaultLoader } from './defaultLoader';
+import { setRouterIsLoadingAction } from '../actions';
+import { State, ActionCreator } from '../models';
+
 
 interface Props extends RouteProps, RouterProps {
     Component: React.ComponentType<any>
-    resolve?: () => Promise<any>;
+    resolve?: ActionCreator<any>;
     LoadingComponent?: React.ComponentType<any>;
     isRouterLoading: boolean;
     isLoggedIn: boolean;
     setLoading: (isLoading: boolean) => void;
+    dispatch: Dispatch
 
 }
 
 export class CostumRoute extends PureComponent<Props, {}> {
     data: any = null;
     componentDidMount() {
+        this.props.setLoading(true);
         this.resolveData();
     }
     async resolveData() {
         const { resolve } = this.props;
         try {
-            if (resolve) this.data = await resolve();
+            if (resolve) this.data = await this.props.dispatch<any>(resolve());
         } catch (err) {
             this.props.history.goBack();
             return;
@@ -34,11 +39,14 @@ export class CostumRoute extends PureComponent<Props, {}> {
             this.props.setLoading(false);
         }
     }
+    componentDidUpdate() {
+        if(!this.props.isLoggedIn) message.error('Please Login Again !');
+    }
 
     render() {
-        const { Component, LoadingComponent, isLoggedIn } = this.props;
+        const { Component, LoadingComponent, isLoggedIn, isRouterLoading } = this.props;
         if( isLoggedIn ) {
-            return this.props.isRouterLoading ? (LoadingComponent ? <LoadingComponent /> : <DefaultLoader />) :
+            return isRouterLoading ? (LoadingComponent ? <LoadingComponent /> : <DefaultLoader />) :
                 (
                     <Component {...this.props} data={this.data} />
                 );
@@ -54,6 +62,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     setLoading: (isLoading: boolean) => { dispatch(setRouterIsLoadingAction(isLoading)) },
+    dispatch,
 });
 
 

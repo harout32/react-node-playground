@@ -1,33 +1,33 @@
-import React, { Component, PureComponent, ReactNode } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { setRouterIsLoadingAction } from '../actions';
 import { Dispatch } from 'redux';
-import { State } from '../models';
+import { State, ActionCreator } from '../models';
 import { DefaultLoader } from './defaultLoader';
 import { RouteProps } from 'react-router-dom';
 import { RouterProps } from 'react-router';
 
 interface Props extends RouteProps, RouterProps {
     Component: React.ComponentType<any>
-    resolve?: () => Promise<any>;
+    resolve?: ActionCreator<any>;
     LoadingComponent?: React.ComponentType<any>;
     isRouterLoading: boolean;
     setLoading: (isLoading: boolean) => void;
-
+    dispatch: Dispatch;
 }
 
 export class CostumRoute extends PureComponent<Props, {}> {
     data: any = null;
     componentDidMount() {
+        this.props.setLoading(true);
         this.resolveData();
     }
     async resolveData() {
         const { resolve } = this.props;
         try {
-            if (resolve) this.data = await resolve();
+            if (resolve) this.data = await this.props.dispatch<any>(resolve());
         } catch (err) {
             this.props.history.goBack();
-            debugger;
             console.log(err);
         } finally {
             this.props.setLoading(false);
@@ -49,6 +49,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     setLoading: (isLoading: boolean) => { dispatch(setRouterIsLoadingAction(isLoading)) },
+    dispatch,
 });
 
 

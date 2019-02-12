@@ -4,25 +4,21 @@ import { apiLogin } from '../../api';
 import { LoginRequestModel, LoginResponseModel, State } from '../../models';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { loginAction } from '../../actions';
+import { userLoginActionCreator } from '../../actions';
 
 
 
- class Login extends Component <{data?: any, login: (userName: string)=>void}, {}> {
+ class Login extends Component <{data?: any, login: (form: LoginRequestModel)=>any}, {}> {
     componentDidMount() {
         console.log(this.props);
     }
     login = async (form: LoginRequestModel) => {
 
         try {
-            const userData: LoginResponseModel = await apiLogin(form);
-            this.props.login('harout');
-            console.log(this.props.data);
-            console.log(userData);
-            debugger;
-
+            this.props.login(form).then((res: any )=> {
+                console.log(res);
+            });
         } catch (e) {
-            debugger;
             console.log(e);
         }
     }
@@ -36,8 +32,5 @@ import { loginAction } from '../../actions';
     }
 }
 const mapStateToProps = (state: State) => ({user: state.user});
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    login:(userName: string) => {dispatch(loginAction(userName))},
-    
-});
+const mapDispatchToProps = (dispatch: Dispatch) => ({ login : (form: LoginRequestModel) => dispatch<any>(userLoginActionCreator(form.userName, form.password)) });
 export const LoginPage = connect(null, mapDispatchToProps)(Login);
