@@ -7,16 +7,18 @@ import { Dispatch } from 'redux';
 import { userLoginActionCreator } from '../../actions';
 
 
+interface Props {data?: any, login: (form: LoginRequestModel)=>any}
+ class Login extends Component <Props, {}> {
 
- class Login extends Component <{data?: any, login: (form: LoginRequestModel)=>any}, {}> {
     componentDidMount() {
+        console.log(this);
         console.log(this.props);
     }
-    login = async (form: LoginRequestModel) => {
+    login (form: LoginRequestModel) {
 
         try {
             this.props.login(form).then((res: any )=> {
-                console.log(res);
+                console.log('action resolve', res);
             });
         } catch (e) {
             console.log(e);
@@ -26,11 +28,11 @@ import { userLoginActionCreator } from '../../actions';
         return (
             <h1>
                 Hello I am Login page
-                <LoginComponent onSubmit={this.login}></LoginComponent>
+                <LoginComponent onSubmit={this.login.bind(this)}></LoginComponent>
             </h1>
         )
     }
 }
 const mapStateToProps = (state: State) => ({user: state.user});
-const mapDispatchToProps = (dispatch: Dispatch) => ({ login : (form: LoginRequestModel) => dispatch<any>(userLoginActionCreator(form.userName, form.password)) });
+const mapDispatchToProps = (dispatch: Dispatch) => ({ login : (form: LoginRequestModel) => dispatch<any>(userLoginActionCreator(form)) });
 export const LoginPage = connect(null, mapDispatchToProps)(Login);

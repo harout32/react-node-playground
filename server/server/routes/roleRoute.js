@@ -10,20 +10,22 @@ const { authentication } = require('../middlewares/authentication');
 const { permissions } = require('../middlewares/permissions');
 const {
   addRole,
-  addPermission,
-  getUserPermissions,
+  addRolePermission,
   getRoles,
+  getRolePermission,
+  deleteRole,
+  deleteRolePermission,
 } = require('../controllers/roleController');
 
 const { permissionsEnum } = require('../Enums/PermissionsEnum');
 
-// roleRouter.use(authentication);
-// roleRouter.get('/', catchErrors(getRoles));
+roleRouter.use(authentication);
+roleRouter.get('/', catchErrors(getRoles));
 roleRouter.post('/', catchErrors(addRole));
-// roleRouter.post('/PermissionToRole', catchErrors(addPermission));
-
-
-
+roleRouter.delete('/:id', catchErrors(deleteRole));
+roleRouter.get('/:id/permission', catchErrors(getRolePermission));
+roleRouter.post('/:id/permission', catchErrors(addRolePermission));
+roleRouter.delete('/:id/permission', catchErrors(deleteRolePermission));
 
 // roleRouter.get('/UserPermissions', catchErrors(getUserPermissions));
 

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RouteProps } from 'react-router-dom';
-import { RouterProps, Redirect } from 'react-router';
+import { RouterProps, Redirect, RouteComponentProps } from 'react-router';
 import { message } from 'antd';
 
 import { DefaultLoader } from './defaultLoader';
@@ -10,45 +10,45 @@ import { setRouterIsLoadingAction } from '../actions';
 import { State, ActionCreator } from '../models';
 
 
-interface Props extends RouteProps, RouterProps {
+interface Props extends RouteComponentProps {
     Component: React.ComponentType<any>
     resolve?: ActionCreator<any>;
     LoadingComponent?: React.ComponentType<any>;
     isRouterLoading: boolean;
     isLoggedIn: boolean;
     setLoading: (isLoading: boolean) => void;
-    dispatch: Dispatch
+    dispatch: Dispatch;
+    permissions: string[];
 
 }
 
 export class CostumRoute extends PureComponent<Props, {}> {
-    data: any = null;
+    state = {isLoading: true};
     componentDidMount() {
-        this.props.setLoading(true);
+        
         this.resolveData();
     }
     async resolveData() {
         const { resolve } = this.props;
         try {
-            if (resolve) this.data = await this.props.dispatch<any>(resolve());
+            if (this.props.isLoggedIn){ 
+                if (resolve) await this.props.dispatch<any>(resolve());
+                this.setState({isLoading: false});
+            } else this.props.history.goBack();
         } catch (err) {
             this.props.history.goBack();
             return;
-        } finally {
-            console.log('finally');
-            this.props.setLoading(false);
         }
     }
     componentDidUpdate() {
         if(!this.props.isLoggedIn) message.error('Please Login Again !');
     }
-
     render() {
-        const { Component, LoadingComponent, isLoggedIn, isRouterLoading } = this.props;
+        const { Component, LoadingComponent, isLoggedIn } = this.props;
         if( isLoggedIn ) {
-            return isRouterLoading ? (LoadingComponent ? <LoadingComponent /> : <DefaultLoader />) :
+            return this.state.isLoading ? (LoadingComponent ? <LoadingComponent /> : <DefaultLoader />) :
                 (
-                    <Component {...this.props} data={this.data} />
+                    <Component history={this.props.history} />
                 );
         }
         return <Redirect  to='/login'/>
@@ -58,6 +58,7 @@ export class CostumRoute extends PureComponent<Props, {}> {
 const mapStateToProps = (state: State) => ({
     isRouterLoading: state.router.isLoading,
     isLoggedIn: state.user.isLoggedIn,
+    permissions: state.user.permissions
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

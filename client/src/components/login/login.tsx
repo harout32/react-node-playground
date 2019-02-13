@@ -12,7 +12,7 @@ interface State {
     lala: boolean
 }
 interface Props extends FormComponentProps {
-    onSubmit: (form: LoginRequestModel) => Promise<void>;
+    onSubmit: (form: LoginRequestModel) => void;
 }
 
 export class Login extends PureComponent<Props, State> {

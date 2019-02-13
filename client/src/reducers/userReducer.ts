@@ -5,6 +5,8 @@ import { UserState, Action, Reducer } from '../models';
 
 const defaultState: UserState = {
     userName: null,
+    email: null,
+    role: null,
     isLoading: true,
     isLoggedIn: false,
     permissions: []
@@ -16,6 +18,8 @@ export const userReducer: Reducer<UserState, Action<UserActionTypes>>
             return {
                 ...state,
                 userName: action.payload.userName,
+                email: action.payload.email,
+                role: action.payload.role.name,
                 isLoggedIn: true,
                 isLoading: false,
             }

@@ -1,13 +1,13 @@
 import { UserActionTypes } from '../enums';
-import { Action } from '../models';
+import { Action, LoginResponseModel } from '../models';
 
 
 type UserAction = Action<UserActionTypes>;
 
-export const userLoginAction = (userName: string): UserAction => {
+export const userLoginAction = (userData: LoginResponseModel): UserAction => {
     return {
         type: UserActionTypes.login,
-        payload: {userName}
+        payload: userData
     };
 }
 export const userLogoutAction = (): UserAction => {

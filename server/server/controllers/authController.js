@@ -45,7 +45,7 @@ const logout = async (req, res, next) => {
 };
 
 const getUserPermissions = async (req, res, next) => {
-  console.log('asdasdasdasdaaaaaaaaaaaa')
+  console.log('asdasdasdasdaaaaaaaaaaaa');
   const role = await Role.findById(req.user.role._id).populate(
     {
       path: 'permissions',

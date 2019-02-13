@@ -17,7 +17,7 @@ interface Props extends RouteProps, RouterProps {
 }
 
 export class CostumRoute extends PureComponent<Props, {}> {
-    data: any = null;
+    state = {isLoading: true};
     componentDidMount() {
         this.props.setLoading(true);
         this.resolveData();
@@ -25,20 +25,19 @@ export class CostumRoute extends PureComponent<Props, {}> {
     async resolveData() {
         const { resolve } = this.props;
         try {
-            if (resolve) this.data = await this.props.dispatch<any>(resolve());
+            if (resolve) await this.props.dispatch<any>(resolve());
         } catch (err) {
             this.props.history.goBack();
             console.log(err);
         } finally {
-            this.props.setLoading(false);
+            this.setState({isLoading: false});
         }
     }
-
     render() {
         const { Component, LoadingComponent } = this.props;
-        return this.props.isRouterLoading ? (LoadingComponent ? <LoadingComponent /> : <DefaultLoader />) :
+        return this.state.isLoading ? (LoadingComponent ? <LoadingComponent /> : <DefaultLoader />) :
             (
-                <Component {...this.props} data={this.data} />
+                <Component history={this.props.history} />
             );
     }
 }

@@ -1,13 +1,29 @@
 import React , { Component } from 'react';
 
-import { Layout, Menu, Icon } from 'antd';
-const { Header, Sider, Content } = Layout;
+import { Layout, Icon } from 'antd';
+const { Header, Content } = Layout;
+
+import { SideNavComponent } from '../../components'
+import { DashboardRouter } from '../../routers';
 
 import './index.scss';
+import { RouteComponentProps } from 'react-router-dom';
 
-export class DashboardPage extends Component {
+import { State } from '../../models';
+import { connect } from 'react-redux';
+
+
+interface Props extends RouteComponentProps {
+  permissions: string[];
+}
+export class Dashboard extends Component <Props> {
     state = {
         collapsed: false,
+      };
+      navigate = (path: string) => {
+        // this.props.history.replace(path);
+        // this.props.history.push(path);
+
       };
       toggle = () => {
         this.setState({
@@ -16,29 +32,10 @@ export class DashboardPage extends Component {
       }
 
     render() {
+      console.log('permissions', this.props.permissions);
         return (
             <Layout style={{'height': '100vh'}}>
-            <Sider
-              trigger={null}
-              collapsible
-              collapsed={this.state.collapsed}
-            >
-              <div className="main-dashboard-logo" />
-              <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                <Menu.Item key="1">
-                  <Icon type="user" />
-                  <span>nav 1</span>
-                </Menu.Item>
-                <Menu.Item key="2">
-                  <Icon type="video-camera" />
-                  <span>nav 2</span>
-                </Menu.Item>
-                <Menu.Item key="3">
-                  <Icon type="upload" />
-                  <span>nav 3</span>
-                </Menu.Item>
-              </Menu>
-            </Sider>
+              <SideNavComponent collapsed={this.state.collapsed} navigate={this.navigate}/>
             <Layout>
               <Header style={{ background: '#fff', padding: 0 }}>
                 <Icon
@@ -51,11 +48,14 @@ export class DashboardPage extends Component {
             margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
           }}
               >
-                Content
+                <DashboardRouter />
               </Content>
             </Layout>
           </Layout>
         )
     }
 }
-
+const mapStateToProps = (state: State) => ({
+permissions: state.user.permissions
+});
+export const DashboardPage = connect(mapStateToProps, null)(Dashboard)
