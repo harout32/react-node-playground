@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { RouteProps } from 'react-router-dom';
-import { RouterProps, Redirect, RouteComponentProps } from 'react-router';
+import { Redirect, RouteComponentProps } from 'react-router';
 import { message } from 'antd';
 
 import { DefaultLoader } from './defaultLoader';
-import { setRouterIsLoadingAction } from '../actions';
+
 import { State, ActionCreator } from '../models';
 
 
@@ -16,7 +15,6 @@ interface Props extends RouteComponentProps {
     LoadingComponent?: React.ComponentType<any>;
     isRouterLoading: boolean;
     isLoggedIn: boolean;
-    setLoading: (isLoading: boolean) => void;
     dispatch: Dispatch;
     permissions: string[];
 
@@ -25,7 +23,6 @@ interface Props extends RouteComponentProps {
 export class CostumRoute extends PureComponent<Props, {}> {
     state = {isLoading: true};
     componentDidMount() {
-        
         this.resolveData();
     }
     async resolveData() {
@@ -48,7 +45,7 @@ export class CostumRoute extends PureComponent<Props, {}> {
         if( isLoggedIn ) {
             return this.state.isLoading ? (LoadingComponent ? <LoadingComponent /> : <DefaultLoader />) :
                 (
-                    <Component history={this.props.history} />
+                    <Component {...this.props} />
                 );
         }
         return <Redirect  to='/login'/>
@@ -62,7 +59,6 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    setLoading: (isLoading: boolean) => { dispatch(setRouterIsLoadingAction(isLoading)) },
     dispatch,
 });
 

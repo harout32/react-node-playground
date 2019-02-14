@@ -1,6 +1,6 @@
 import { RoleActionTypes } from '../enums';
 import { Action, Reducer } from '../models';
-import { RoleState } from '../models/states/RoleState';
+import { RoleState } from '../models/states/roleState';
 
 
 
@@ -21,6 +21,13 @@ export const roleReducer: Reducer<RoleState, Action<RoleActionTypes>>
                     };
                 }, {})
             };
+            case RoleActionTypes.loadPermissions :
+            return {
+                ...state,
+                permissions: action.payload.reduce((accr: { [key: string]: string }, per: { _id: string; name: string; }) => {
+                    return {...accr, [per._id]: per.name};
+                    }, {})
+            }
             default :
             return state;
         }

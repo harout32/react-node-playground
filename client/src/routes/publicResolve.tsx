@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { setRouterIsLoadingAction } from '../actions';
 import { Dispatch } from 'redux';
 import { State, ActionCreator } from '../models';
 import { DefaultLoader } from './defaultLoader';
@@ -12,14 +11,12 @@ interface Props extends RouteProps, RouterProps {
     resolve?: ActionCreator<any>;
     LoadingComponent?: React.ComponentType<any>;
     isRouterLoading: boolean;
-    setLoading: (isLoading: boolean) => void;
     dispatch: Dispatch;
 }
 
 export class CostumRoute extends PureComponent<Props, {}> {
     state = {isLoading: true};
     componentDidMount() {
-        this.props.setLoading(true);
         this.resolveData();
     }
     async resolveData() {
@@ -37,7 +34,7 @@ export class CostumRoute extends PureComponent<Props, {}> {
         const { Component, LoadingComponent } = this.props;
         return this.state.isLoading ? (LoadingComponent ? <LoadingComponent /> : <DefaultLoader />) :
             (
-                <Component history={this.props.history} />
+                <Component {...this.props} />
             );
     }
 }
@@ -47,7 +44,6 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    setLoading: (isLoading: boolean) => { dispatch(setRouterIsLoadingAction(isLoading)) },
     dispatch,
 });
 

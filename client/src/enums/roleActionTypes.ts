@@ -1,5 +1,6 @@
 export enum RoleActionTypes {
     loadRoles = 'LOAD_ALL_ROLES',
+    loadPermissions = 'LOAD_ALL_PERMISSIONS',
     addRole = 'ADD_NEW_ROLE',
     deleteRole = 'DELETE_A_ROLE',
     addPermissionToRole = 'ADD_PERMISSION_TO_ROLE',

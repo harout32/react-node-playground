@@ -8,22 +8,16 @@ import { FormComponentProps } from 'antd/lib/form';
 
 import { LoginRequestModel } from '../../models';
 
-interface State {
-    lala: boolean
-}
+
 interface Props extends FormComponentProps {
     onSubmit: (form: LoginRequestModel) => void;
 }
 
-export class Login extends PureComponent<Props, State> {
-    state = {
-        lala: false
-    }
+export class Login extends PureComponent<Props> {
     componentDidMount() {
         console.dir(process.env);
     }
     handleSubmit = (e: any) => {
-        this.setState((prevState: State, props: Props) => ({ lala: !prevState.lala }));
         e.preventDefault();
         this.props.form.validateFields((err: any, values: LoginRequestModel) => {
             if (err) {
@@ -59,7 +53,7 @@ export class Login extends PureComponent<Props, State> {
             </Button>
                 </Form.Item>
         </Form>
-        <Link to="/dashboard"> <h1> Go To Dashboard</h1></Link>
+        <Link to="/dashboard/roles"> <h1> Go To Dashboard</h1></Link>
         </>
         );
     }

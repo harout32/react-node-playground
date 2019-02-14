@@ -1,9 +1,9 @@
 import { UserState } from './userState';
 import { RouterState } from './routerState';
-import { RoleState } from './RoleState';
+import { RoleState } from './roleState';
 
 export interface State {
     user: UserState;
     router: RouterState;
-    roles: RoleState;
+    role: RoleState;
 }

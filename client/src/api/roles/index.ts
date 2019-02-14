@@ -1,5 +1,10 @@
 import { apiRequest } from '../apiRequest';
-import { RoleResponseModel } from '../../models';
+import { RoleResponseModel, PermissionsResponseModel } from '../../models';
+
+export const apiGetAllPermissions = () => {
+    return apiRequest.get<PermissionsResponseModel[]>('/permission');
+}
+
 
 
 const route = '/role';

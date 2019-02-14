@@ -24,7 +24,6 @@ export const MainRoutes = () => (
         <Route
             path='/login'
             render={(props: RouteComponentProps) => {
-                console.log(props);
                 return <PublicResolve {...props} Component={LoginPage} />
             }}
         />

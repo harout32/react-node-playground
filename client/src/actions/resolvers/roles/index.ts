@@ -1,6 +1,6 @@
-import { apiGetUserPermissions, apiGetRoles } from "../../../api";
+import { apiGetUserPermissions, apiGetRoles, apiGetAllPermissions } from "../../../api";
 import { setUserPermissions } from "../../userActions";
-import { loadRoles } from '../../roleActions';
+import { loadRoles, loadPermissions } from '../../roleActions';
 import { Dispatch } from "redux";
 import { State } from "../../../models";
 
@@ -14,16 +14,33 @@ export const permissionResolver = () => async (
         const permissions = await apiGetUserPermissions();
         dispatch(setUserPermissions(['asdasd']));
         return Promise.resolve(permissions);
-      } catch (err) {}
+      } catch (err) {
+        return Promise.reject();
+      }
 }
-
 
 export const RolesResolver  = () => async (
     dispatch: Dispatch,
     getState: () => State
   ) => {
-      debugger;
+    try{
     const roles = await apiGetRoles();
     dispatch(loadRoles(roles));
     return Promise.resolve(roles);
+  }catch(err) {
+    return Promise.reject();
+  }
+  }
+
+  export const AllPermissionsResolver = () => async (
+    dispatch: Dispatch,
+    getState: () => State
+  ) => {
+    try {
+    const permissions = await apiGetAllPermissions();
+    dispatch(loadPermissions(permissions));
+    return Promise.resolve(permissions);
+    }catch(err) {
+      return Promise.reject();
+    }
   }

@@ -19,7 +19,7 @@ export class SideNavComponent extends Component<{collapsed: boolean, navigate: (
           >
             <div className="main-dashboard-logo" />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1" onClick={() => this.props.navigate('/dashboard/roles')} >
+              <Menu.Item key="1" onClick={() => this.props.navigate('/dashboard/role/asdasd')} >
               <Icon type="usergroup-add" />
               <span>Roles</span>
                 <Link to="/dashboard/roles" className="link"></Link>

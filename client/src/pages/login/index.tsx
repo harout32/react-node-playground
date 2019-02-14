@@ -5,14 +5,13 @@ import { LoginRequestModel, LoginResponseModel, State } from '../../models';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { userLoginActionCreator } from '../../actions';
+import { RouteComponentProps } from 'react-router-dom';
 
 
-interface Props {data?: any, login: (form: LoginRequestModel)=>any}
+interface Props extends RouteComponentProps {data?: any, login: (form: LoginRequestModel)=>any}
  class Login extends Component <Props, {}> {
 
     componentDidMount() {
-        console.log(this);
-        console.log(this.props);
     }
     login (form: LoginRequestModel) {
 

@@ -1,4 +1,4 @@
-import React , { Component } from 'react';
+import React , { PureComponent } from 'react';
 
 import { Layout, Icon } from 'antd';
 const { Header, Content } = Layout;
@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 interface Props extends RouteComponentProps {
   permissions: string[];
 }
-export class Dashboard extends Component <Props> {
+export class Dashboard extends PureComponent <Props> {
     state = {
         collapsed: false,
       };
@@ -32,7 +32,6 @@ export class Dashboard extends Component <Props> {
       }
 
     render() {
-      console.log('permissions', this.props.permissions);
         return (
             <Layout style={{'height': '100vh'}}>
               <SideNavComponent collapsed={this.state.collapsed} navigate={this.navigate}/>
