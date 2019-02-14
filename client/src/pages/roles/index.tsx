@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
 import { Breadcrumb, Icon } from 'antd';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';

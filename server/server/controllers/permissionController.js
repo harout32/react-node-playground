@@ -2,9 +2,7 @@ const { Permission } = require('../models/Permission');
 
 const getPermissions = async (req, res, next) => {
   const permissions = await Permission.find();
-  console.log(permissions);
-  const permissionArr = permissions.map(i => i.name);
-  res.status(200).send(permissionArr);
+  res.status(200).send(permissions);
 };
 
 const getUserPermissions = async (req, res, next) => {

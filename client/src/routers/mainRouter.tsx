@@ -11,7 +11,6 @@ import { LoginPage, DashboardPage } from '../pages';
 
 import { PublicResolve } from '../routes/publicResolve';
 import { PrivateResolve } from '../routes/privateResolve';
-import { permissionResolver } from '../actions';
 
 const SomeLoading = () => <h1> Loading.... </h1>;
 
@@ -30,7 +29,7 @@ export const MainRoutes = () => (
         <Route
             path='/dashboard'
             render={(props: RouteComponentProps) => {
-                return <PrivateResolve {...props} Component={DashboardPage} resolve={permissionResolver} LoadingComponent={SomeLoading}/>
+                return <PrivateResolve {...props} Component={DashboardPage} LoadingComponent={SomeLoading}/>
                 }}
         />
         <Route

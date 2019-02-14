@@ -1,6 +1,6 @@
 import { apiLogin, apiGetUserPermissions } from '../../api';
 import { LoginResponseModel, State } from '../../models';
-import { userLoginAction, setUserPermissions } from '../userActions';
+import { userLoginAction } from '../userActions';
 import { Dispatch } from 'redux';
 
 export const userLoginActionCreator = (
@@ -15,13 +15,4 @@ export const userLoginActionCreator = (
   } catch (err) {
     return Promise.reject('async login action error');
   }
-};
-export const GetUserPermissionsActionCreator = () => async (
-  dispatch: Dispatch
-) => {
-  try {
-    const permissions = await apiGetUserPermissions();
-    dispatch(setUserPermissions(['asdasd']));
-    return Promise.resolve(permissions);
-  } catch (err) {}
 };

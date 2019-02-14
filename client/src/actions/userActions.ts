@@ -17,10 +17,5 @@ export const userLogoutAction = (): UserAction => {
     }
 }
 
-export const setUserPermissions = (permissions: string[]) => {
-    return {
-        type: UserActionTypes.setUserPermissions,
-        payload: permissions
-    };
-};
+
 export const loadingAction = () => {}

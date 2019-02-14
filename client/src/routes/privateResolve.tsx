@@ -16,7 +16,6 @@ interface Props extends RouteComponentProps {
     isRouterLoading: boolean;
     isLoggedIn: boolean;
     dispatch: Dispatch;
-    permissions: string[];
 
 }
 
@@ -55,7 +54,6 @@ export class CostumRoute extends PureComponent<Props, {}> {
 const mapStateToProps = (state: State) => ({
     isRouterLoading: state.router.isLoading,
     isLoggedIn: state.user.isLoggedIn,
-    permissions: state.user.permissions
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

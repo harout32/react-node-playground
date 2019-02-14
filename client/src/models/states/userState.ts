@@ -6,5 +6,5 @@ export interface UserState {
     email: string | null;
     isLoading: boolean;
     isLoggedIn: boolean;
-    permissions: string[];
+    permissions: {[key: string]: boolean};
 }

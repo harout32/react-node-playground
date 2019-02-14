@@ -3,10 +3,21 @@ import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import { PublicResolve } from '../routes';
 
 import { RolesPage } from '../pages';
-import { RolesResolver, AllPermissionsResolver } from '../actions';
+import { RolesResolver } from '../actions';
 
 export const DashboardRouter = () => (
   <>
+    <Route
+        path="/dashboard"
+        exact={true}
+        render={(props: RouteComponentProps) => {
+          return (
+            <Redirect
+             to="/dashboard/roles"
+            />
+          );
+        }}
+      />
       <Route
         path="/dashboard/roles"
         render={(props: RouteComponentProps) => {

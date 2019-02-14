@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 
 
 interface Props extends RouteComponentProps {
-  permissions: string[];
+  
 }
 export class Dashboard extends PureComponent <Props> {
     state = {
@@ -55,6 +55,5 @@ export class Dashboard extends PureComponent <Props> {
     }
 }
 const mapStateToProps = (state: State) => ({
-permissions: state.user.permissions
 });
 export const DashboardPage = connect(mapStateToProps, null)(Dashboard)

@@ -10,14 +10,14 @@ import { RouteComponentProps } from 'react-router-dom';
 
 interface Props extends RouteComponentProps {data?: any, login: (form: LoginRequestModel)=>any}
  class Login extends Component <Props, {}> {
-
-    componentDidMount() {
+    constructor(props: Props) {
+        super(props);
+        // this.login = this.login.bind(this);
     }
-    login (form: LoginRequestModel) {
-
+    login  = (form: LoginRequestModel) => {
         try {
             this.props.login(form).then((res: any )=> {
-                console.log('action resolve', res);
+                this.props.history.push('/dashboard')
             });
         } catch (e) {
             console.log(e);
@@ -25,10 +25,12 @@ interface Props extends RouteComponentProps {data?: any, login: (form: LoginRequ
     }
     render() {
         return (
-            <h1>
-                Hello I am Login page
-                <LoginComponent onSubmit={this.login.bind(this)}></LoginComponent>
-            </h1>
+            <>
+                
+                <div  className="login-component-wrapper">
+                <LoginComponent onSubmit={this.login}></LoginComponent>
+                </div>
+            </>
         )
     }
 }

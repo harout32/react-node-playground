@@ -24,8 +24,10 @@ const login = async (req, res, next) => {
   const user = await User.findOne({ userName: data.userName }).populate(
     {
       path: 'role',
-      select: '-_id -permissions -__v',
-    }
+      select: '-_id -__v',
+      populate: { path: 'permissions' },
+    },
+  
   );
   if (!user) return next({ message: 'You\'r Credentials are not Correct!!', status: 401 });
   // compare hashed password with the plane text one

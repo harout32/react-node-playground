@@ -9,7 +9,7 @@ const defaultState: UserState = {
     role: null,
     isLoading: true,
     isLoggedIn: false,
-    permissions: []
+    permissions: {}
 }
 export const userReducer: Reducer<UserState, Action<UserActionTypes>> 
     = (state: UserState = defaultState, action: Action<UserActionTypes>): UserState => {
@@ -22,15 +22,11 @@ export const userReducer: Reducer<UserState, Action<UserActionTypes>>
                 role: action.payload.role.name,
                 isLoggedIn: true,
                 isLoading: false,
+                permissions: action.payload.role.permissions.reduce((accr: any, item: {_id: string; name: string}) => ({...accr, [item.name]: true}) ,{})
             }
             case UserActionTypes.logout:
             return {
                 ...defaultState
-            }
-            case UserActionTypes.setUserPermissions:
-            return {
-                ...state,
-                permissions: action.payload
             }
             default:
             return state;
