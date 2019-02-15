@@ -22,10 +22,10 @@ const { permissionsEnum } = require('../Enums/PermissionsEnum');
 roleRouter.use(authentication);
 roleRouter.get('/', catchErrors(getRoles));
 roleRouter.post('/', catchErrors(addRole));
-roleRouter.delete('/:id', catchErrors(deleteRole));
+roleRouter.put('/:id', catchErrors(deleteRole));
 roleRouter.get('/:id/permission', catchErrors(getRolePermission));
 roleRouter.post('/:id/permission', catchErrors(addRolePermission));
-roleRouter.delete('/:id/permission', catchErrors(deleteRolePermission));
+roleRouter.put('/:id/permission', catchErrors(deleteRolePermission));
 
 // roleRouter.get('/UserPermissions', catchErrors(getUserPermissions));
 

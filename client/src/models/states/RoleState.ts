@@ -1,4 +1,10 @@
 export interface RoleState {
-    roles: {[key: string]:{name: string, permissions: string[]}};
-    permissions: {[key: string]: string; };
+    roles: RolesStateType;
+    permissions: PermissionsStateType;
 }
+export interface RolesStateType {
+    [key: string]: { name: string; permissions: PermissionsStateType };
+  }
+export interface PermissionsStateType {
+    [key: string]: string;
+  }

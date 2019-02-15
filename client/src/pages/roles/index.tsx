@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Breadcrumb, Icon } from 'antd';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { State, RoleState } from '../../models';
+import { State, RoleState, RolesStateType } from '../../models';
 import { RolesRouter } from '../../routers';
 
 interface Props extends RouteComponentProps {
-  roles: { [key: string]: { name: string; permissions: string[] } };
+  roles: RolesStateType;
 }
 
 export class Roles extends Component<Props> {

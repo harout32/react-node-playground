@@ -5,3 +5,4 @@ type RoleAction = Action<RoleActionTypes>
 
 export const loadRoles = (roles: RoleResponseModel[]): RoleAction  => ({type: RoleActionTypes.loadRoles, payload: roles});
 export const loadPermissions = (permissions: PermissionsResponseModel[] ): RoleAction => ({type: RoleActionTypes.loadPermissions, payload: permissions});
+export const updateRolePermissions = (roleId: string, permissions: PermissionsResponseModel[]): RoleAction => ({type: RoleActionTypes.updateRolePermissions, payload: {permissions, roleId}});

@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect, RouteComponentProps, Link } from 'react-router-dom';
 import { PublicResolve } from '../routes';
 
-import { RolesPage, RolesSubPage } from '../pages';
+import { RolesPage, RolesSubPage, RolePage } from '../pages';
 import { RolesResolver } from '../actions';
 
 export const RolesRouter = () => (
@@ -25,7 +25,7 @@ export const RolesRouter = () => (
         return (
           <PublicResolve
             {...props}
-            Component={() => <h1>Role</h1>}
+            Component={RolePage}
           />
         );
       }}
