@@ -1,4 +1,11 @@
+.roles-container {
+    display: flex;
+    justify-content: space-between;
+}
 .role-list {
-    width: 500px;
-    margin: 15px auto;
+    width: 300px;
+    align-self:  flex-start
+}
+.role-control {
+    align-self:  flex-end;
 }

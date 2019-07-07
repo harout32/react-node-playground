@@ -11,6 +11,7 @@ import { LoginPage, DashboardPage } from '../pages';
 
 import { PublicResolve } from '../routes/publicResolve';
 import { PrivateResolve } from '../routes/privateResolve';
+import { LoginRoute } from '../routes';
 
 const SomeLoading = () => <h1> Loading.... </h1>;
 
@@ -23,7 +24,7 @@ export const MainRoutes = () => (
         <Route
             path='/login'
             render={(props: RouteComponentProps) => {
-                return <PublicResolve {...props} Component={LoginPage} />
+                return <LoginRoute {...props} Component={LoginPage} />
             }}
         />
         <Route
@@ -33,7 +34,7 @@ export const MainRoutes = () => (
                 }}
         />
         <Route
-            path="*"    
+            path="*"
             render={() => {
                 message.error('please Login !');
                 return <Redirect to='/login' />}}

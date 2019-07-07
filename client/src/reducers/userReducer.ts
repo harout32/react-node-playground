@@ -8,7 +8,7 @@ const defaultState: UserState = {
     email: null,
     role: null,
     isLoading: true,
-    isLoggedIn: false,
+    isLoggedIn: !!localStorage.getItem('token'),
     permissions: {}
 }
 export const userReducer: Reducer<UserState, Action<UserActionTypes>> 
