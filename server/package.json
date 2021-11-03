@@ -23,7 +23,7 @@
     "mongoose-mongodb-errors": "0.0.2",
     "pug": "^2.0.3",
     "swagger": "^0.7.5",
-    "validator": "^10.4.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "eslint": "^5.12.1",
